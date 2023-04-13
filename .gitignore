@@ -1,0 +1,5 @@
+logs/
+.idea/
+*.iml
+.vscode/
+*__debug_bin
