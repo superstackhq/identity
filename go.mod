@@ -5,10 +5,13 @@ go 1.20
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/kamva/mgm/v3 v3.5.0
-	github.com/superstackhq/common v0.0.0-20230413034814-fed3e69b187b
+	github.com/sethvargo/go-password v0.2.0
+	github.com/superstackhq/common v0.0.0-20230413041404-08bc350a3f0c
 	go.mongodb.org/mongo-driver v1.11.4
 	go.uber.org/zap v1.24.0
+	golang.org/x/crypto v0.5.0
 )
 
 require (
@@ -43,7 +46,6 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.5.0 // indirect

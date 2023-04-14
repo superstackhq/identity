@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamva/mgm/v3"
 	"github.com/superstackhq/common/logger"
+	"github.com/superstackhq/identity/internal/app/identity/authentication"
+	"github.com/superstackhq/identity/internal/app/identity/health"
+	"github.com/superstackhq/identity/internal/app/identity/organization"
+	"github.com/superstackhq/identity/internal/app/identity/user"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
 )
@@ -55,6 +59,15 @@ func (s *Server) Start() {
 		ExposeHeaders:    []string{"*"},
 		AllowCredentials: true,
 	}))
+
+	authenticator := authentication.NewAuthenticator(s.config.JwtSecretKey)
+
+	organizationManager := organization.NewManager()
+	userManager := user.NewManager(organizationManager, authenticator)
+
+	health.NewHandler(router).Register()
+	organization.NewHandler(router, authenticator, organizationManager).Register()
+	user.NewHandler(router, authenticator, userManager).Register()
 
 	zap.L().Info("starting identity server", zap.String("host", s.config.Host), zap.String("port", s.config.Port))
 	err = router.Run(fmt.Sprintf("%s:%s", s.config.Host, s.config.Port))
